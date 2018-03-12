@@ -48,24 +48,30 @@ function parseNote(note_str) {
     return res;
 }
 
-function convertNote(note_str_raw) {
+function convertNote(note_str_raw, octave_mod) {
     let note_str = note_str_raw.toLowerCase();
     let res = parseNote(note_str);
     let prefix = "";
     if (!res)
         return "";
+
+    res.octave += octave_mod;
+
     if (res.octave != 0) {
         res.note = res.note.toUpperCase();
         if (res.octave == 1) {
             prefix = "s";
         } else if (res.octave == -1) {
             prefix = "c";
+        } else {
+            prefix = "!";
         }
     }
+
     return prefix + res.note + res.extra;
 }
 
-function convertNotes(input) {
+function convertNotes(input, octave_mod) {
     let lines = input.split("\n");
     let line_res = [];
     lines.forEach(function (line) {
@@ -73,7 +79,7 @@ function convertNotes(input) {
         let res = [];
         spl.forEach(function (note) {
             if (note) {
-                let res_note = convertNote(note);
+                let res_note = convertNote(note, octave_mod);
                 res_note ? res.push(res_note) : res.push("?");
             }
         });
@@ -84,5 +90,6 @@ function convertNotes(input) {
 
 $("#note_button").click(function () {
     let input = $("#note_input").val();
-    $("#note_output").val(convertNotes(input));
+    let octave_mod = parseFloat($("input[name=cv]:checked").val());
+    $("#note_output").val(convertNotes(input, octave_mod));
 });

@@ -12,9 +12,25 @@
 
 <h2>Note converter</h2>
 <div>
-    <label for="note_input">Input</label><textarea rows="4" cols="50" id="note_input"></textarea>
+    <table>
+        <tr>
+            <td><label>
+                <input type="radio" name="cv" value="0" checked="checked">
+                Normal
+            </label></td>
+            <td><label>
+                <input type="radio" name="cv" value="1">
+                Octave Up
+            </label></td>
+            <td><label>
+                <input type="radio" name="cv" value="-1">
+                Octave Down
+            </label></td>
+        </tr>
+    </table>
+    <label for="note_input">Input: </label><textarea rows="10" cols="50" id="note_input"></textarea>
     <button id="note_button">Convert</button>
-    <label for="note_output">Output</label><textarea rows="4" cols="50" id="note_output"></textarea>
+    <label for="note_output">Output: </label><textarea rows="10" cols="50" id="note_output"></textarea>
 </div>
 
 <script src="music_converter.js"></script>
